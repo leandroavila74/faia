@@ -64,7 +64,7 @@ export function Home() {
         <div className="lg:col-span-2">
           <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Mapa da jornada</p>
           <div className="flex flex-col gap-2">
-            {phases.map((phase, idx) => (
+            {phases.map((phase) => (
               <button
                 key={phase.id}
                 className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 hover:border-indigo-300 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm transition-all duration-150 text-left cursor-pointer group shadow-sm"
