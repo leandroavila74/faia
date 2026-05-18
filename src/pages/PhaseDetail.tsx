@@ -48,54 +48,54 @@ export function PhaseDetail() {
   return (
     <div>
       {/* Phase header */}
-      <div className={`${c.bg} px-4 pt-4 pb-5`}>
+      <div className={`${c.bg} px-4 pt-4 pb-5 lg:px-8 lg:pt-6 lg:pb-7`}>
         <button
-          className="flex items-center gap-1 text-white/70 text-xs mb-3 active:opacity-80"
+          className="flex items-center gap-1 text-white/70 text-xs mb-3 hover:text-white/90 active:opacity-80 transition-colors cursor-pointer"
           onClick={() => navigate('/framework')}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          Voltar
+          Voltar às fases
         </button>
         <div className="flex items-start gap-3">
-          <div className="bg-white/20 rounded-xl w-10 h-10 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+          <div className="bg-white/20 rounded-xl w-10 h-10 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 lg:w-12 lg:h-12 lg:text-xl">
             {phase.id}
           </div>
           <div>
             <p className="text-white/70 text-xs font-semibold uppercase tracking-wider mb-0.5">Fase {phase.id}</p>
-            <h2 className="text-white font-bold text-lg leading-tight">{phase.title}</h2>
+            <h2 className="text-white font-bold text-lg leading-tight lg:text-2xl">{phase.title}</h2>
           </div>
         </div>
-        <p className="text-white/80 text-xs italic mt-3 leading-relaxed">"{phase.philosophy}"</p>
+        <p className="text-white/80 text-xs italic mt-3 leading-relaxed lg:text-sm lg:max-w-2xl">"{phase.philosophy}"</p>
       </div>
 
       {/* Meta */}
-      <div className="grid grid-cols-2 gap-px bg-slate-200 border-b border-slate-200">
+      <div className="grid grid-cols-2 gap-px bg-slate-200 border-b border-slate-200 lg:grid-cols-4">
         {phase.meta.map((m, i) => (
-          <div key={i} className="bg-white px-3 py-2">
+          <div key={i} className="bg-white px-3 py-2 lg:px-6 lg:py-3">
             <p className="text-xs text-slate-400 font-medium">{m.label}</p>
-            <p className="text-xs text-slate-700 font-semibold mt-0.5">{m.value}</p>
+            <p className="text-xs text-slate-700 font-semibold mt-0.5 lg:text-sm">{m.value}</p>
           </div>
         ))}
       </div>
 
       {/* Objective */}
-      <div className="px-4 py-4 bg-slate-50 border-b border-slate-200">
+      <div className="px-4 py-4 bg-slate-50 border-b border-slate-200 lg:px-8 lg:py-5">
         <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Objetivo da fase</p>
-        <p className="text-sm text-slate-600 leading-relaxed">{phase.objective}</p>
+        <p className="text-sm text-slate-600 leading-relaxed lg:text-base lg:max-w-3xl">{phase.objective}</p>
       </div>
 
       {/* Phase-specific content */}
-      <div className="px-4 py-4">
+      <div className="px-4 py-4 lg:px-8 lg:py-6">
         <ContentComponent />
       </div>
 
       {/* Navigation between phases */}
-      <div className="flex gap-3 px-4 pb-6">
+      <div className="flex gap-3 px-4 pb-6 lg:px-8 lg:pb-8">
         {phaseId > 1 && (
           <button
-            className="flex-1 flex items-center justify-center gap-1 border border-slate-200 rounded-xl py-3 text-sm text-slate-600 font-medium active:bg-slate-50"
+            className="flex-1 flex items-center justify-center gap-1 border border-slate-200 rounded-xl py-3 text-sm text-slate-600 font-medium hover:bg-slate-50 hover:border-slate-300 hover:shadow-sm active:bg-slate-50 transition-all duration-150 cursor-pointer"
             onClick={() => navigate(`/framework/${phaseId - 1}`)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -106,7 +106,7 @@ export function PhaseDetail() {
         )}
         {phaseId < 7 && (
           <button
-            className={`flex-1 flex items-center justify-center gap-1 ${c.bg} rounded-xl py-3 text-sm text-white font-medium active:opacity-90`}
+            className={`flex-1 flex items-center justify-center gap-1 ${c.bg} rounded-xl py-3 text-sm text-white font-medium hover:opacity-90 active:opacity-90 transition-all duration-150 cursor-pointer shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0`}
             onClick={() => navigate(`/framework/${phaseId + 1}`)}
           >
             Fase {phaseId + 1}

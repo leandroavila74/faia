@@ -7,15 +7,100 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col max-w-md mx-auto relative shadow-xl">
-      <Header />
-      <main className="flex-1 overflow-y-auto pb-20">
-        {children}
-      </main>
+    <div className="min-h-screen bg-slate-200 lg:bg-slate-100">
+      {/* Sidebar — desktop only */}
+      <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:border-r lg:border-slate-200 lg:bg-white lg:z-20">
+        <DesktopSidebar />
+      </aside>
+
+      {/* Main wrapper: mobile column centrada / desktop offset da sidebar */}
+      <div className="flex flex-col max-w-md mx-auto bg-slate-50 min-h-screen shadow-xl relative lg:max-w-none lg:ml-64 lg:shadow-none lg:bg-slate-50">
+        <Header />
+        <main className="flex-1 pb-20 lg:pb-10 lg:max-w-4xl lg:mx-auto lg:w-full">
+          {children}
+        </main>
+      </div>
+
+      {/* Bottom nav — mobile only */}
       <BottomNav />
     </div>
   )
 }
+
+/* ───────── Desktop Sidebar ───────── */
+
+function DesktopSidebar() {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const isActive = (path: string) => {
+    if (path === '/') return location.pathname === '/'
+    return location.pathname.startsWith(path)
+  }
+
+  return (
+    <>
+      {/* Brand */}
+      <div className="px-5 py-5 border-b border-slate-100">
+        <button
+          className="flex items-center gap-3 w-full text-left cursor-pointer group"
+          onClick={() => navigate('/')}
+        >
+          <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center flex-shrink-0 shadow-sm group-hover:shadow-md group-hover:scale-105 transition-all duration-200">
+            <span className="text-white font-bold text-base">F</span>
+          </div>
+          <div>
+            <p className="text-sm font-bold text-slate-900 leading-none">FAIA</p>
+            <p className="text-xs text-slate-400 mt-0.5 leading-none">Framework de Adoção de IA</p>
+          </div>
+        </button>
+      </div>
+
+      {/* Nav items */}
+      <nav className="flex-1 px-3 py-4 space-y-1">
+        {navItems.map((item) => {
+          const active = isActive(item.id)
+          return (
+            <button
+              key={item.id}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 cursor-pointer ${
+                active
+                  ? 'bg-indigo-50 text-indigo-700 shadow-sm'
+                  : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+              }`}
+              onClick={() => navigate(item.id)}
+            >
+              <span className={active ? 'text-indigo-600' : 'text-slate-400'}>
+                {item.icon(active)}
+              </span>
+              {item.label}
+            </button>
+          )
+        })}
+      </nav>
+
+      {/* Footer */}
+      <div className="px-5 py-4 border-t border-slate-100">
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-slate-400">Beta · v0.5</span>
+          <a
+            href="https://github.com/leandroavila74/faia"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors"
+            title="Ver no GitHub"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </>
+  )
+}
+
+/* ───────── Header ───────── */
 
 function Header() {
   const location = useLocation()
@@ -24,32 +109,38 @@ function Header() {
 
   return (
     <header className="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between sticky top-0 z-10 shadow-sm">
+      {/* Mobile: logo + título / Desktop: só o título da seção atual */}
       <div className="flex items-center gap-2">
         <button
-          className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center active:bg-indigo-700 transition-colors"
+          className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center active:bg-indigo-700 hover:bg-indigo-700 transition-colors cursor-pointer shadow-sm hover:shadow-md lg:hidden"
           onClick={() => navigate('/')}
         >
           <span className="text-white font-bold text-sm">F</span>
         </button>
         <div>
-          <h1 className="text-sm font-bold text-slate-900 leading-none">FAIA</h1>
-          <p className="text-xs text-slate-400 leading-none mt-0.5">Framework de Adoção de IA</p>
+          <h1 className="text-sm font-bold text-slate-900 leading-none lg:hidden">FAIA</h1>
+          <p className="text-xs text-slate-400 leading-none mt-0.5 lg:hidden">Framework de Adoção de IA</p>
+          <p className="hidden lg:block text-sm font-semibold text-slate-700">
+            {pageTitles[location.pathname] ?? (isPhaseDetail ? 'Detalhes da Fase' : 'FAIA')}
+          </p>
         </div>
       </div>
+
       <div className="flex items-center gap-2">
         {isPhaseDetail && (
           <button
-            className="text-xs text-indigo-600 font-medium px-3 py-1 rounded-full bg-indigo-50 active:bg-indigo-100"
+            className="text-xs text-indigo-600 font-medium px-3 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 active:bg-indigo-100 transition-colors cursor-pointer"
             onClick={() => navigate('/framework')}
           >
             ← Fases
           </button>
         )}
+        {/* GitHub icon — mobile only (desktop tem na sidebar) */}
         <a
           href="https://github.com/leandroavila74/faia"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 active:bg-slate-200 transition-colors"
+          className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 active:bg-slate-200 transition-colors cursor-pointer lg:hidden"
           title="Ver no GitHub"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -60,6 +151,15 @@ function Header() {
     </header>
   )
 }
+
+const pageTitles: Record<string, string> = {
+  '/': 'Início',
+  '/framework': 'As 7 Fases',
+  '/trilhas': 'Trilhas de Capacitação',
+  '/recursos': 'Recursos',
+}
+
+/* ───────── Nav items (shared) ───────── */
 
 const navItems = [
   {
@@ -100,6 +200,8 @@ const navItems = [
   },
 ]
 
+/* ───────── Bottom Nav (mobile only) ───────── */
+
 function BottomNav() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -110,13 +212,13 @@ function BottomNav() {
   }
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t border-slate-200 px-2 py-1 flex items-center justify-around z-10">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t border-slate-200 px-2 py-1 flex items-center justify-around z-10 lg:hidden">
       {navItems.map((item) => {
         const active = isActive(item.id)
         return (
           <button
             key={item.id}
-            className={`flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-colors ${
+            className={`flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all duration-150 cursor-pointer ${
               active ? 'text-indigo-600' : 'text-slate-400 hover:text-slate-600'
             }`}
             onClick={() => navigate(item.id)}

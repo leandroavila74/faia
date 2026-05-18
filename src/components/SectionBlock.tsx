@@ -25,7 +25,7 @@ interface InfoCardProps {
 
 export function InfoCard({ title, description, meta, badge, accent = 'border-l-indigo-400' }: InfoCardProps) {
   return (
-    <div className={`bg-white border border-slate-200 border-l-4 ${accent} rounded-xl p-4 mb-3`}>
+    <div className={`bg-white border border-slate-200 border-l-4 ${accent} rounded-xl p-4 mb-3 shadow-sm hover:shadow-md transition-shadow duration-200`}>
       <div className="flex items-start justify-between gap-2 mb-1">
         <p className="text-sm font-semibold text-slate-800">{title}</p>
         {badge}
@@ -51,7 +51,7 @@ const levelColors = {
 
 export function ScaleItem({ label, score, text, level }: ScaleItemProps) {
   return (
-    <div className={`border border-slate-200 border-l-4 ${levelColors[level]} rounded-xl p-3 mb-2`}>
+    <div className={`border border-slate-200 border-l-4 ${levelColors[level]} rounded-xl p-3 mb-2 shadow-sm`}>
       <div className="flex items-center gap-2 mb-1">
         <span className="text-xs font-bold text-slate-700">{label}</span>
         <span className="text-xs font-mono text-slate-500">{score}</span>

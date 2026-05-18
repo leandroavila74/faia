@@ -57,9 +57,9 @@ const competencyAreas = [
 
 export function Trilhas() {
   return (
-    <div className="px-4 py-5">
+    <div className="px-4 py-5 lg:px-8 lg:py-8">
       <div className="mb-5">
-        <h2 className="text-xl font-bold text-slate-900">Trilhas de Capacitação</h2>
+        <h2 className="text-xl font-bold text-slate-900 lg:text-2xl">Trilhas de Capacitação</h2>
         <p className="text-sm text-slate-500 mt-1">Programa de AI fluency para toda a engenharia</p>
       </div>
 
@@ -88,7 +88,7 @@ export function Trilhas() {
       <SectionBlock title="Matriz de 4 níveis de proficiência">
         <div className="space-y-3">
           {proficiencyLevels.map((lvl) => (
-            <div key={lvl.badge} className="bg-white border border-slate-200 rounded-xl p-4">
+            <div key={lvl.badge} className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
               <span className={`inline-flex text-xs font-bold rounded-full px-3 py-1 mb-2 ${lvl.color}`}>{lvl.badge}</span>
               <p className="text-sm font-medium text-slate-800 mb-1">{lvl.desc}</p>
               <p className="text-xs text-slate-500 mb-2"><span className="font-medium">Critério:</span> {lvl.criteria}</p>

@@ -38,9 +38,9 @@ const references = [
 
 export function Recursos() {
   return (
-    <div className="px-4 py-5">
+    <div className="px-4 py-5 lg:px-8 lg:py-8">
       <div className="mb-5">
-        <h2 className="text-xl font-bold text-slate-900">Recursos</h2>
+        <h2 className="text-xl font-bold text-slate-900 lg:text-2xl">Recursos</h2>
         <p className="text-sm text-slate-500 mt-1">Ferramentas, métricas e referências do framework</p>
       </div>
 
@@ -53,7 +53,7 @@ export function Recursos() {
               {tools
                 .filter((t) => t.cat === cat)
                 .map((tool) => (
-                  <div key={tool.name} className="border border-slate-100 rounded-xl p-3">
+                  <div key={tool.name} className="border border-slate-100 rounded-xl p-3 shadow-sm hover:shadow-md hover:border-slate-200 transition-all duration-200">
                     <div className="flex items-center gap-2 mb-1">
                       <p className="text-sm font-semibold text-slate-800">{tool.name}</p>
                       <span className={`text-xs rounded-full px-2 py-0.5 font-medium ${catColors[tool.cat]}`}>{tool.cat}</span>
@@ -70,7 +70,7 @@ export function Recursos() {
       <SectionBlock title="Métricas de impacto (DORA)">
         <div className="space-y-2">
           {doraMetrics.map((m) => (
-            <div key={m.id} className="bg-white border border-slate-200 rounded-xl p-3">
+            <div key={m.id} className="bg-white border border-slate-200 rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow duration-200">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xs font-mono font-bold text-indigo-600">{m.id}</span>
               </div>
@@ -98,7 +98,7 @@ export function Recursos() {
       <SectionBlock title="Referências e estudos">
         <div className="space-y-2">
           {references.map((ref) => (
-            <div key={ref.title} className="bg-slate-50 border border-slate-200 rounded-xl p-3">
+            <div key={ref.title} className="bg-slate-50 border border-slate-200 rounded-xl p-3 shadow-sm hover:shadow-md hover:bg-white transition-all duration-200">
               <p className="text-sm font-semibold text-slate-800">{ref.title}</p>
               <p className="text-xs text-slate-500 mt-0.5">{ref.desc}</p>
             </div>
