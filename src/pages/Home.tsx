@@ -28,7 +28,7 @@ export function Home() {
               </div>
               <span className="text-indigo-200 text-xs font-semibold uppercase tracking-wider">Tech Leads Club</span>
             </div>
-            <h1 className="text-2xl font-bold leading-tight mb-2 lg:text-3xl">Framework de Adoção de IA</h1>
+            <h1 className="text-2xl font-bold leading-tight mb-2 lg:text-3xl text-balance">Framework de Adoção de&nbsp;IA</h1>
             <p className="text-indigo-100 text-sm leading-relaxed lg:text-base">
               Um guia de 7 fases para times de engenharia que querem adotar IA de forma estruturada e sustentável —
               do diagnóstico organizacional à escala corporativa.
